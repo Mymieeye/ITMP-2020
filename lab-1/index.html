@@ -1,36 +1,114 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Lab - Multimedia Programming 2563 ITKMITL</title>
 	<link rel=stylesheet href="../src/reset.css">
 	<link rel=stylesheet href="lab.css">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 </head>
+
 <body class="paper">
+
 	<div id="app">
-		<input type="number">
-		<div class="space"></div>
-		<h4>{{number}} x 1 = x</h4>
-		<h4>{{number}} x 2 = x</h4>
-		<h4>{{number}} x 3 = x</h4>
-		<h4>{{number}} x 4 = x</h4>
-		<h4>{{number}} x 5 = x</h4>
-		<h4>{{number}} x 6 = x</h4>
-		<h4>{{number}} x 7 = x</h4>
-		<h4>{{number}} x 8 = x</h4>
-		<h4>{{number}} x 9 = x</h4>
-		<h4>{{number}} x 10 = x</h4>
-		<h4>{{number}} x 11 = x</h4>
-		<h4>{{number}} x 12 = x</h4>
+		<div class="column"><input class="input is-rounded " type="number" v-model="n" placeholder="input number"></div>
+		<div class="column"> <input  class="input is-rounded" type="number" v-model="row" placeholder="input number"></div>
+
+		<div class="column">
+			<table class="table is-striped ">
+				<tr>
+					<th><h3 class="is-large ">สูตรคูณแม่ {{n}}</h3></th>
+				</tr>
+				<tr>
+					<th><h4 v-for="i in r">{{n}} x {{i}} = {{x(i)}}</h4></th>
+				</tr>
+				<tr>
+					<th><h4> sum = {{sum(row)}}</h4></th>
+				</tr>
+			</table>
+		</div>
 	</div>
 
 	<script>
+		let a = 0
 		let app = new Vue({
 			el: '#app',
+
 			data: {
-				number: 2
+				//ข้อมูลว่างๆ
+				n: 2, //ค่าเปลี่ยนตาม v-model="n"
+				be_n: 1,
+				row: 12,
+
+			},
+
+			methods: { //เหมือนcomputed แต่อันนี้ รับค่าได้ *ห้ามตั้งชื่อตรงกับ data*
+				x: function(row){
+					return this.n*row
+				},
+				sum: function(row){
+					a = 0
+					for (let i = 1; i <= row; i++) {
+						a += (this.n * i)
+					}
+					return a
+				}
+			},
+
+			watch: {
+				n: function(a,b){
+					//console.log(a)
+					this.be_n = b
+				}
+			},
+
+			computed: {
+				//ประมวลผล
+				//เกิดหลังหารประมวลผลของ data แล้ว *ห้ามตั้งชื่อตรงกับ data*
+				//x2: ()=>{}
+				r: function(){
+					return parseInt(this.row)
+				},
+				x2: function() {
+					return this.n * 2 //ถ้าไม่ใช้ this ต้องประกาศเป็น let
+				},
+				x3: function() {
+					return this.n * 2
+				},
+				x4: function() {
+					return this.n * 3
+				},
+				x5: function() {
+					return this.n * 4
+				},
+				x6: function() {
+					return this.n * 5
+				},
+				x7: function() {
+					return this.n * 6
+				},
+				x8: function() {
+					return this.n * 7
+				},
+				x9: function() {
+					return this.n * 8
+				},
+				x10: function() {
+					return this.n * 9
+				},
+				x11: function() {
+					return this.n * 10
+				},
+				x12: function() {
+					return this.n * 12
+				}
 			}
+
+
 		})
 	</script>
 </body>
+
 </html>
