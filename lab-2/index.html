@@ -5,28 +5,111 @@
 	<title>The Members - ITKMITL Multimedia Programming 2563</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 	<link rel="stylesheet" type="text/css" href="lab.css">
 </head>
 
 <body>
-	<div id="app">
-		About
-		<h3>Username : {{person.username}}</h3>
-		<h3>name : {{person.name}}</h3>
-		<h3>email : {{person.email}}</h3>
-		<h3>website : {{person.website}}</h3>
-		<h3>company : {{person.company.name}}</h3>
-		<button @click="isthisgood">เขาเป็นสมาชิกที่ดีไหม</button>
-		<h2>{{yesno.answer}}</h2>
-		<img :src="yesno.image" alt="">
+	<section class="container">
+		<div class="level-item">
+			<div class="columns is-multiline is-centered cards-container">
+				<div id="app" class="column is-narrow is-centered">
+					<article class="message is-primary">
+						<div class="message-header">Information</div>
 
-		Users
-		<!--เอาข้อมูลในinner มาใส่ attribute แทน โดยเติม :-->
-		<h2 v-for="u in users" :data-id="u.id" @click="viewbio(u)">
-			<img :src="`https://picsum.photos/id/3${u.id}/200/300`" alt="">
-			{{u.username}}</h2>
-		<!--ต้องการแสดงผลข้อมูลทุกคนของ user / {{}} เป็นการ print ค่า-->
-	</div>
+						<div class="message-body">
+							<div class="board-item">
+								<div class="board-item-content">
+									<span>Username : {{person.username}}</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="message-body">
+							<div class="board-item">
+								<div class="board-item-content">
+									<span>name : {{person.name}}</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="message-body">
+							<div class="board-item">
+								<div class="board-item-content">
+									<span>email : {{person.email}}</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="message-body">
+							<div class="board-item">
+								<div class="board-item-content">
+									<span>website : {{person.website}}</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="message-body">
+							<div class="board-item">
+								<div class="board-item-content">
+									<span>company : {{person.company.name}}</span>
+								</div>
+							</div>
+						</div>
+					</article>
+
+
+
+
+					<div class="container">
+						<div class="columns">
+							<div class="column is-10 is-offset-1">
+								<div class="columns featured-post is-multiline">
+									<div class="column is-12 post">
+										<article class="columns featured">
+											<div class="column is-7 post-img ">
+												<button @click="isthisgood" class="tag is-success is-large">Yes or No</button>
+												<div class="column is-5 featured-content va">
+													<h2 class="post-excerpt">{{yesno.answer}}</h2>
+												</div>
+
+
+												<img :src="yesno.image" alt="">
+											</div>
+
+									</div>
+
+								</div>
+								</article>
+							</div>
+
+
+						</div>
+					</div>
+
+					<section class="container">
+
+						<div class="message-header">User</div>
+						<div class="column is-4">
+							<div class="card is-shady">
+								<div class="card-image">
+
+									<!--เอาข้อมูลในinner มาใส่ attribute แทน โดยเติม :-->
+									<h2 v-for="u in users" :data-id="u.id" @click="viewbio(u)">
+										<img :src="`https://picsum.photos/id/3${u.id}/200/300`" alt="">{{u.username}}</h2>
+									<!--ต้องการแสดงผลข้อมูลทุกคนของ user / {{}} เป็นการ print ค่า-->
+								</div>
+							</div>
+						</div>
+					</section>
+
+
+
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
 
 
 	<script>
@@ -45,7 +128,7 @@
 				viewbio: function (user) {
 					this.person = user
 					this.yesno = {
-						"answer": "click here!!",
+						"answer": "click !!",
 						"forced": false,
 						"image": ""
 					} //เวลาคลิกที่อีกคน มันจะคงไว้แบบนี้ ไม่ขึ้นรูปก่อนหน้า
@@ -65,7 +148,7 @@
 			data: {
 				yesno:
 				{
-					"answer": "click here!!",
+					"answer": "click!!",
 					"forced": false,
 					"image": ""
 
@@ -73,32 +156,18 @@
 
 				person: {
 					"id": 1,
-					"name": "________",
-					"username": "________",
-					"email": "________",
-					"website": "________",
+					"name": "___loading___",
+					"username": "___loading___",
+					"email": "___loading___",
+					"website": "___loading___",
 					"company": {
-						"name": "________",
+						"name": "___loading___",
 						"catchPhrase": "Multi-layered client-server neural-net",
 						"bs": "harness real-time e-markets"
 					}
 
 				},
-				users: [
-					{
-						"id": 1,
-						"name": "________",
-						"username": "________",
-						"email": "________",
-						"website": "________",
-						"company": {
-							"name": "________",
-							"catchPhrase": "Multi-layered client-server neural-net",
-							"bs": "harness real-time e-markets"
-						}
-					}, // obj 1 ตัว แทนด้วย u
-
-				]
+				users: []
 			}
 		})
 		//	function viewbio(h2) {
