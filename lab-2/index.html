@@ -1,38 +1,112 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>The Members - ITKMITL Multimedia Programming 2563</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" type="text/css" href="lab.css">
 </head>
+
 <body>
 	<div id="app">
-		
+		About
+		<h3>Username : {{person.username}}</h3>
+		<h3>name : {{person.name}}</h3>
+		<h3>email : {{person.email}}</h3>
+		<h3>website : {{person.website}}</h3>
+		<h3>company : {{person.company.name}}</h3>
+		<button @click="isthisgood">เขาเป็นสมาชิกที่ดีไหม</button>
+		<h2>{{yesno.answer}}</h2>
+		<img :src="yesno.image" alt="">
+
+		Users
+		<!--เอาข้อมูลในinner มาใส่ attribute แทน โดยเติม :-->
+		<h2 v-for="u in users" :data-id="u.id" @click="viewbio(u)">
+			<img :src="`https://picsum.photos/id/3${u.id}/200/300`" alt="">
+			{{u.username}}</h2>
+		<!--ต้องการแสดงผลข้อมูลทุกคนของ user / {{}} เป็นการ print ค่า-->
 	</div>
-	
+
 
 	<script>
-		fetch('https://jsonplaceholder.typicode.com/users')
-		.then(response => response.json())
-		.then(json => {console.log(json)})
+		fetch('https://jsonplaceholder.typicode.com/users') //ดึง api มา
+			.then(response => response.json()) //ถ้า response ใช้งานได้ให้เปลี่ยนเป็น json
+			.then(json => {
+				console.log(json)
+				app.users = json
+				app.person = json[0]
+			})
+
+
 		let app = new Vue({
 			el: '#app',
+			methods: {
+				viewbio: function (user) {
+					this.person = user
+					this.yesno = {
+						"answer": "click here!!",
+						"forced": false,
+						"image": ""
+					} //เวลาคลิกที่อีกคน มันจะคงไว้แบบนี้ ไม่ขึ้นรูปก่อนหน้า
+
+				},
+				isthisgood: function () {
+					fetch('https://yesno.wtf/api') //ดึง api มา
+						.then(response => response.json()) //ถ้า response ใช้งานได้ให้เปลี่ยนเป็น json
+						.then(json => {
+							console.log(json)
+							app.yesno = json
+
+						})
+				}
+			},
+
 			data: {
-				users :[],
-				person:{
-					id:0,
-					name:'..loading',
-					username:'..loading',
-					email:'..loading',
-					website:'..loading',
-					company:{
-						name : '..loading',
+				yesno:
+				{
+					"answer": "click here!!",
+					"forced": false,
+					"image": ""
+
+				},
+
+				person: {
+					"id": 1,
+					"name": "________",
+					"username": "________",
+					"email": "________",
+					"website": "________",
+					"company": {
+						"name": "________",
+						"catchPhrase": "Multi-layered client-server neural-net",
+						"bs": "harness real-time e-markets"
 					}
-				}	
+
+				},
+				users: [
+					{
+						"id": 1,
+						"name": "________",
+						"username": "________",
+						"email": "________",
+						"website": "________",
+						"company": {
+							"name": "________",
+							"catchPhrase": "Multi-layered client-server neural-net",
+							"bs": "harness real-time e-markets"
+						}
+					}, // obj 1 ตัว แทนด้วย u
+
+				]
 			}
 		})
-
+		//	function viewbio(h2) {
+		//		let id = h2.dataset.id; //อะไรก็แล้วแต่ที่เราตั้งว่า data จะมาอยู่ตรงนี้
+		//		app.person = app.users[id-1]
+		//		console.log(id)
+		//	}
 	</script>
 </body>
+
 </html>
