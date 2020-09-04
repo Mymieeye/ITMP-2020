@@ -99,13 +99,14 @@
 		})
 		//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
 		document.querySelector('#canvas').style.setProperty('--picklight', picklight); //แก้ Property --picklight ให้มีค่าเท่ากับตัวแปร picklight
+
 		let counter = setInterval(()=>{
 			if (app.time>0) {
 				app.time--
 			}else{
 				clearInterval(counter)
 			}
-		},1000);
+		},1000); //set เวลา
 
 	</script>
 </body>
