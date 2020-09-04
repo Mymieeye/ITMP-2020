@@ -36,9 +36,9 @@ main{
 	align-items: center;
 }
 a-dot{
-	--row:3;
+	--row:3; /* --เป้นตัวเเปรที่เราตั้งเอง */
 	--h:330;
-	--l:50%;
+	--l:90%;
 	--size: calc((100% / var(--row)) - 2%);
 	width: var(--size);
 	height: var(--size);
