@@ -13,20 +13,21 @@
 				-- แสดงคะแนน
 			</div>
 		</section>
-		<section id="canvas_main" 
+		<section id="canvas_main"
 		:data-play="play">
 			<main>
-				<div class="box _path" 
-				v-for="i in 14" 
-				:data-pst="i"></div>
+				<div class="box _path"
+				v-for="i in 14"
+				:data-pst="i">{{i}}</div>
+
 				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div>
 
-				<div class="box _fruit"></div>
+				<div class="box _fruit"  v-for="i in fruits" :data-pst="i.pst" :data-type="i.type"></div>
 
 				<div class="box _origin"></div>
 				<div class="box _12" data-pst="12"></div>
 				<div class="box _16" data-pst="16"></div>
-				
+
 			</main>
 		</section>
 		<section id="canvas_footer">
@@ -44,24 +45,51 @@
 			let shift = (stop-start)+1
 			return Math.floor(Math.random()*100%shift)+start
 		}
-		
-		let fruitCount = 5
+
+		let nextFruitId = 5 //คือ id
 		let isRightArrow = 1
 		let speed = 1000
 		let app = new Vue({
 			el:'#canvas',
 			data:{
+				isRightArrow: isRightArrow,
+				speed: speed,
 				play:true,
-				time:0,
+				turn:0,
 				score:0,
 				fruits:[
-					{id:1,type:13,pst:6,run:true,step:1},
-					{id:2,type:11,pst:3,run:true,step:1},
-					{id:3,type:11,pst:2,run:true,step:1},
-					{id:4,type:13,pst:1,run:true,step:1},
+					{id:1,type:13,pst:6,run:true,step:1}, // type คือ ผลไม้
+					{id:2,type:11,pst:3,run:true,step:1},// pst จุดเริ่มต้นของผลไม้
+					//{id:3,type:11,pst:2,run:true,step:1},// run คือผลไม้เดินทางไปได้เรื่อยๆมั้ย
+					//{id:4,type:13,pst:1,run:true,step:1},//มันเดินทางผ่านไปกี่วิ
 				]
-			}
+			},
+			methods:{
+
+			},
+			computed:{
+
+			},//ประมวลผลทุกๆครั้งที่ค่าทุกค่าเปลี่ยน
+			watch:{
+				turn: function(x){//ต้องการเปลี่ยนค่าอื่นตาม turn
+					let count = app.fruits.length
+					for(let f in this.fruits){
+						//console.log(f)
+						//console.log(this.fruits[f].id)
+						let run = this.fruits[f].run
+						if(run){
+							this.fruits[f].pst +=1
+						}
+
+					}
+
+					//console.log(x)
+				}
+			}//ดูแค่ค่าใดค่าหนึ่งที่เปลี่ยนไป
 		})
+		let playing = setInterval(function(){
+			app.turn++
+		},speed) // เมื่อครบ 1 วิ
 	</script>
 </body>
 </html>
